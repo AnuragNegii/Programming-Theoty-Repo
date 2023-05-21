@@ -4,32 +4,39 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    [SerializeField] private float movementSpeed = 10.0f;
-    [SerializeField] private float rotationSpeed = 50.0f;
-    [SerializeField] private float jumpForce = 100.0f;
+    [SerializeField] private float movementSpeed = 700.0f;
+    public float MovementSpeed{ get { return movementSpeed; }set { movementSpeed = value; } }
+    [SerializeField] protected float rotationSpeed = 50.0f;
+    [SerializeField] private float jumpForce = 1000.0f;
+    protected float JumpForce{get {return jumpForce; }set { jumpForce = value; }}
 
     private float verticalInput;
     private float horizontalInput;
 
-    Rigidbody rb;
+    Rigidbody rigidBodyRB;
     private void Awake()
     {
-        rb = GetComponent<Rigidbody>();
+        rigidBodyRB = GetComponent<Rigidbody>();
     }
     private void Update()
     {
-    if (Input.GetKeyDown(KeyCode.Space))
-    {
-        rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-        Debug.Log("spacePressed");
-    }
-    verticalInput = Input.GetAxis("Vertical");
+        jumpMethod(rigidBodyRB, jumpForce);
+        verticalInput = Input.GetAxis("Vertical");
         horizontalInput = Input.GetAxis("Horizontal");
     }
+
+    protected void jumpMethod(Rigidbody rb, float jumpForce)
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        }
+    }
+
     // Update is called once per frame
     void FixedUpdate()
     {
-        rb.AddRelativeForce(Vector3.forward * verticalInput * movementSpeed );
+        rigidBodyRB.AddRelativeForce(Vector3.forward * verticalInput * movementSpeed );
         transform.Rotate(Vector3.up, rotationSpeed * horizontalInput * Time.deltaTime);
     }
 }
