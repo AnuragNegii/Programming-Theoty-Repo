@@ -10,10 +10,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float jumpForce = 1000.0f;
     protected float JumpForce{get {return jumpForce; }set { jumpForce = value; }}
 
-    private float verticalInput;
-    private float horizontalInput;
+    protected float verticalInput;
+    protected float horizontalInput;
 
-    Rigidbody rigidBodyRB;
+    protected Rigidbody rigidBodyRB;
     private void Awake()
     {
         rigidBodyRB = GetComponent<Rigidbody>();
@@ -25,7 +25,7 @@ public class PlayerMovement : MonoBehaviour
         horizontalInput = Input.GetAxis("Horizontal");
     }
 
-    protected void jumpMethod(Rigidbody rb, float jumpForce)
+    private void jumpMethod(Rigidbody rb, float jumpForce)
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {

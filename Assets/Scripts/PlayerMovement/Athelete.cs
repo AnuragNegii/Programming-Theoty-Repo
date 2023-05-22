@@ -1,22 +1,17 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Child : PlayerMovement
+public class Athelete : PlayerMovement
 {
+
     private void Awake()
     {
         rigidBodyRB = GetComponent<Rigidbody>();
+        MovementSpeed = 700.0f;
+        JumpForce = 1000.0f;
     }
 
-    void Start()
-    {
-        MovementSpeed = 500.0f;
-        JumpForce = 300.0f;
-    }
-
-    // Update is called once per frame
     void Update()
     {
         jumpMethod();
